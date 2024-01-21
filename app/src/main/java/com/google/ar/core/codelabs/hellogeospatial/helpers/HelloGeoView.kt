@@ -17,6 +17,7 @@ package com.google.ar.core.codelabs.hellogeospatial.helpers
 
 import android.opengl.GLSurfaceView
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -32,6 +33,8 @@ import com.google.ar.core.examples.java.common.helpers.SnackbarHelper
 class HelloGeoView(val activity: HelloGeoActivity) : DefaultLifecycleObserver {
   val root = View.inflate(activity, R.layout.activity_main, null)
   val surfaceView = root.findViewById<GLSurfaceView>(R.id.surfaceview)
+    val eraseButton = root.findViewById<Button>(R.id.eraseButton)
+    val currentMarkerButton = root.findViewById<Button>(R.id.addTagButton)
 
   val session
     get() = activity.arCoreSessionHelper.session
@@ -69,6 +72,7 @@ class HelloGeoView(val activity: HelloGeoActivity) : DefaultLifecycleObserver {
                                                      poseText)
     }
   }
+    fun getCurrentCameraPosition() = mapView?.googleMap?.cameraPosition?.target
 
   override fun onResume(owner: LifecycleOwner) {
     surfaceView.onResume()

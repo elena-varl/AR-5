@@ -41,7 +41,8 @@ class MapView(val activity: HelloGeoActivity, val googleMap: GoogleMap) {
   val cameraMarker = createMarker(CAMERA_MARKER_COLOR)
   var cameraIdle = true
 
-  val earthMarker = createMarker(EARTH_MARKER_COLOR)
+  //val earthMarker = createMarker(EARTH_MARKER_COLOR)
+  val earthMarker = mutableListOf<Marker>(createMarker(EARTH_MARKER_COLOR))
 
   init {
     googleMap.uiSettings.apply {
@@ -110,4 +111,20 @@ class MapView(val activity: HelloGeoActivity, val googleMap: GoogleMap) {
     canvas.drawBitmap(navigationIcon,  /* left= */0f,  /* top= */0f, p)
     return navigationIcon
   }
+  fun addMarker(position_: LatLng, isVisible_: Boolean) {
+    val marker = createMarker(EARTH_MARKER_COLOR)
+    marker.apply {
+      position = position_
+      isVisible = isVisible_
+    }
+    earthMarker.add(marker)
+  }
+
+  fun clearMarkers(){
+    earthMarker.forEach {
+      it.isVisible=false
+    }
+    earthMarker.clear()
+  }
+
 }
